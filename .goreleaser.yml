@@ -1,0 +1,73 @@
+project_name: 'dshield-intelfeed-ips'
+
+before:
+  hooks:
+    - 'go mod download'
+    - 'go mod tidy'
+
+builds:
+  - id: 'dshield-intelfeed-ips'
+    main: './cmd/dshield-intelfeed-ips'
+    binary: 'dshield-intelfeed-ips'
+    goarch:
+      - '386'
+      - 'amd64'
+      - 'arm64'
+    goos:
+      - 'darwin'
+      - 'linux'
+      - 'windows'
+    ignore:
+      - goos: 'darwin'
+        goarch: '386'
+      - goos: 'linux'
+        goarch: 'arm64'
+      - goos: 'windows'
+        goarch: 'arm64'
+
+archives:
+  - id: 'dshield-intelfeed-ips'
+    builds:
+      - 'dshield-intelfeed-ips'
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
+    replacements:
+      amd64: x86-64
+      386: 'i386'
+      darwin: 'macOS'
+    wrap_in_directory: true
+    files:
+      - 'CHANGELOG.md'
+      - 'LICENSE.md'
+      - 'README.md'
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "{{ .Tag }}-next"
+
+changelog:
+  skip: true
+
+nfpms:
+  - id: 'dshield-intelfeed-ips'
+    builds:
+      - 'dshield-intelfeed-ips'
+    homepage: 'https://github.com/PatrickCronin/dshield-intelfeed-ips'
+    maintainer: 'Patrick Cronin <patrick@gwana.co>'
+    description: 'Print every IP from the DShield API''s Intelfeed endpoint.'
+    license: 'MIT'
+    formats:
+      - 'deb'
+      - 'rpm'
+    bindir: '/usr/bin'
+    contents:
+      - src: 'CHANGELOG.md'
+        dst: '/usr/share/doc/dshield-intelfeed-ips/CHANGELOG.md'
+      - src: 'LICENSE.md'
+        dst: '/usr/share/doc/dshield-intelfeed-ips/LICENSE.md'
+      - src: 'README.md'
+        dst: '/usr/share/doc/dshield-intelfeed-ips/README.md'
