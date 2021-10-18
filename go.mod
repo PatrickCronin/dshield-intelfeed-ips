@@ -1,3 +1,3 @@
-module github.com/PatrickCronin/dshield-intelfeed-apis
+module github.com/PatrickCronin/dshield-intelfeed-ips
 
 go 1.17
