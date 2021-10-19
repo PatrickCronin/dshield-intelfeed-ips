@@ -22,12 +22,13 @@
 ## Print Usage
 
 ```bash
-./dshield-intelfeed-ips -h
+$ ./dshield-intelfeed-ips -h
 ./dshield-intelfeed-ips
     Retrieve and output the IPs on DShield API's Intelfeed endpoint
     (https://isc.sans.edu/api/#intelfeed).
 
 Usage: (-h|-email xxx@yyy.com)
+$
 ```
 
 ## Print the IPs on the DShield API's Intelfeed
